@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #chat-log {
+            border: 1px solid #000;
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+    
+        #chat-form {
+            display: flex;
+            border: 1px solid #000;
+            padding: 10px;
+        }
+    
+        #message-input {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+    
+        #chat-form button {
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- This is where the chat log will be displayed -->
+<div id="chat-log"></div>
+
+<form id="chat-form">
+    <input id="message-input" type="text" />
+    <button type="submit">Send</button>
+</form>
+
+<script>
+        // Add an event listener to the form's submit event
+    document.getElementById('chat-form').addEventListener('submit', function(event) {
+        // Prevent the form from being submitted in the default way
+        event.preventDefault();
+
+        // Get the user's message from the input field
+        var message = document.getElementById('message-input').value;
+
+        // Clear the input field
+        document.getElementById('message-input').value = '';
+
+        // Append the name and message to the chat log
+        var chatLog = document.getElementById('chat-log');
+        var newMessage = document.createElement('p');
+        newMessage.textContent = 'You: ' + message;
+        chatLog.appendChild(newMessage);
+});
+</script>
+</body>
+</html>
