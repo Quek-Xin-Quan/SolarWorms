@@ -32,12 +32,14 @@
 
 <form id="chat-form">
     <input id="message-input" type="text" />
+    <input type="file" id="image-input" accept="image/*">
     <button type="submit">Send</button>
 </form>
 
-<script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+    
         // Add an event listener to the form's submit event
-    document.getElementById('chat-form').addEventListener('submit', function(event) {
+    document.getElementById('chat-form').addEventListener('submit', async function(event) {
         // Prevent the form from being submitted in the default way
         event.preventDefault();
 
@@ -47,12 +49,91 @@
         // Clear the input field
         document.getElementById('message-input').value = '';
 
-        // Append the name and message to the chat log
-        var chatLog = document.getElementById('chat-log');
-        var newMessage = document.createElement('p');
-        newMessage.textContent = 'You: ' + message;
-        chatLog.appendChild(newMessage);
-});
+        // Get the selected file from the file input field
+        var file = document.getElementById('image-input').files[0];
+
+        if (file) {
+            // Read the file as a data URL
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = async function() {
+                var base64data = reader.result;
+
+                // Send the image to the Segment Anything Model
+                try {
+                    const response = await axios.post('https://api.segmind.com/v1/sam-img2img', {
+                        image: base64data,
+                    }, { 
+                        headers: { 'x-api-key': 'SG_098e9ec2f3930c89' } 
+                    });
+
+                    var segmentData = response.data;
+                    console.log(segmentData);
+                } catch (error) {
+                    console.error(error);
+                }
+
+                /*var segmentResponse = await fetch('https://api.segmind.com/v1/sam-img2img', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': 'SG_098e9ec2f3930c89', // replace 'your-api-key' with your actual API key
+                    },
+                    body: JSON.stringify({
+                        image: base64data,
+                    }),
+                });
+
+                // Parse the response from the Segment Anything Model
+                var segmentData = await segmentResponse.json();
+                console.log(segmentData);
+
+                // Send the response from the Segment Anything Model to LLAMA2 for analysis
+                var llamaResponse = await fetch('https://your-llama2-endpoint', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Ocp-Apim-Subscription-Key': 'your-api-key', // replace 'your-api-key' with your actual API key
+                    },
+                    body: JSON.stringify({
+                        message: segmentData,
+                    }),
+                });
+
+                // Parse the response from LLAMA2
+                var llamaData = await llamaResponse.json();
+
+                // Append the response from LLAMA2 to the chat log
+                var chatLog = document.getElementById('chat-log');
+                var botMessage = document.createElement('p');
+                botMessage.textContent = 'LLM: ' + llamaData.message;
+                chatLog.appendChild(botMessage);*/
+            };
+        }
+
+        // If there's a text message, send it to LLAMA2 for analysis
+        if (message) {
+            var llamaResponse = await fetch('https://your-llama2-endpoint', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Ocp-Apim-Subscription-Key': 'your-api-key', // replace 'your-api-key' with your actual API key
+                },
+                body: JSON.stringify({
+                    message: message,
+                }),
+            });
+
+            // Parse the response from LLAMA2
+            var llamaData = await llamaResponse.json();
+
+            // Append the response from LLAMA2 to the chat log
+            var chatLog = document.getElementById('chat-log');
+            var botMessage = document.createElement('p');
+            botMessage.textContent = 'LLM: ' + llamaData.message;
+            chatLog.appendChild(botMessage);
+        }
+    });
 </script>
 </body>
 </html>

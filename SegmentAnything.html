@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Segment Anything</h2>
+
+<form id="imageForm">
+    <input type="file" id="imageInput" name="image">
+    <input type="button" value="Submit" onclick="submitImage()">
+</form>
+
+<div id="result"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+
+const api_key = "SG_098e9ec2f3930c89";
+const url = "https://api.segmind.com/v1/sam-img2img";
+
+async function submitImage() {
+    const imageInput = document.getElementById('imageInput');
+    const resultDiv = document.getElementById('result');
+
+    if (imageInput.files.length > 0) {
+        const imageFile = imageInput.files[0];
+        const reader = new FileReader();
+        reader.onload = async function(event) {
+            const base64Image = event.target.result.split(',')[1];
+            const data = {
+                "image": base64Image
+            };
+
+            try {
+                const response = await axios.post(url, data, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': api_key
+                    },
+                    responseType: 'blob' // tell axios to download the response as a Blob
+                });
+
+                if (response.status === 200) {
+                    const urlCreator = window.URL || window.webkitURL;
+                    const imageUrl = urlCreator.createObjectURL(response.data);
+                    const img = document.createElement('img');
+                    img.src = imageUrl;
+                    resultDiv.innerHTML = '';
+                    resultDiv.appendChild(img);
+                } else {
+                    resultDiv.textContent = 'Error: ' + response.status;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+        reader.readAsDataURL(imageFile);
+    } else {
+        resultDiv.textContent = 'Please select an image.';}    
+}
+</script>
+
+</body>
+</html>
