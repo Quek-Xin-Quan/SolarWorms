@@ -9,7 +9,6 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
-            height: 100vh;
             margin: 0;
             background-color: #f8f8f8;
             font-family: Arial, sans-serif;
@@ -43,7 +42,8 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-            margin-bottom: 20px; /* add some space between the panels and the table */
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
         .panel h2 {
@@ -76,8 +76,20 @@
             text-align: left;
             position: relative; /* This will make the text position itself relative to its parent */
             z-index: 1; /* This will place the text in front of the image */
+        }
+        .dashboard {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 0;
+            background-color: #f8f8f8;
+            font-family: Arial, sans-serif;
         }    
-        
+        .dashboard img {
+            width: 60%; /* Adjust this value to your preference */
+            height: auto; /* This will maintain the aspect ratio of the image */
+        }
         
     </style>
 </head>
@@ -88,6 +100,12 @@
         </strong>
         <img class="compost" src="images/composting-banner.png" alt="Composting">
     </div>
+
+    <div class="dashboard">
+        <h1>Composting Dashboard</h1>
+        <img src="images/compostingdashboard.png" alt="Composting Dashboard">
+    </div>
+        
     <div class="container">
         <h1>NPK Forecast</h1>
         <table id="T_3b27b">
