@@ -51,7 +51,11 @@
 
 /* BUTTON */
 .chatbox__button {
-    text-align: right;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 123456;
+    /* text-align: right; */
 }
 
 .send__button {
@@ -99,6 +103,10 @@
 }
 
 .chatbox__support {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 123456;
     background: #f9f9f9;
     height: 450px;
     width: 350px;

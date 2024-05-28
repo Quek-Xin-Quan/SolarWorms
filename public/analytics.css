@@ -11,11 +11,10 @@
 body {
     height: 100vh;
     width: 100%;
-    background-image: url("images/background.jpg");
+    background-image: url("images/background2.jpg");
     background-position: center;
     background-size: cover;
 }
-
 .sidebar {
     position: fixed;
     top: 0;
@@ -27,15 +26,17 @@ body {
     flex-direction: column;
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(17px);
-    --webkit-backdrop-filter: blur(17px);
+    -webkit-backdrop-filter: blur(17px);
     border-right: 1px solid rgba(255, 255, 255, 0.7);
     transition: width 0.3s ease;
+    overflow-y: hidden; /* Prevent scrollbar on hover */
 }
 
 .sidebar:hover {
     width: 260px;
 }
 
+/* Logo styles */
 .sidebar .logo {
     color: #000;
     display: flex;
@@ -59,11 +60,12 @@ body {
     display: block;
 }
 
+/* Links styles */
 .sidebar .links {
     list-style: none;
     margin-top: 20px;
-    overflow-y: auto;
-    scrollbar-width: none;
+    overflow-y: auto; /* Allow scrolling within the sidebar */
+    scrollbar-width: none; /* Hide scrollbar */
     height: calc(100% - 140px);
 }
 
@@ -83,7 +85,7 @@ body {
 }
 
 .links h4 {
-    color: #222;
+    color: #000;
     font-weight: 500;
     display: none;
     margin-bottom: 10px;
@@ -95,7 +97,7 @@ body {
 
 .links hr {
     margin: 10px 8px;
-    border: 1px solid #4c4c4c;
+    border: 1px solid #000;
 }
 
 .sidebar:hover .links hr {
@@ -106,7 +108,7 @@ body {
     padding: 12px 10px;
 }
 
-.links li a {
+.links li a, .links li p {
     padding: 10px;
     color: #000;
     display: none;
@@ -114,18 +116,8 @@ body {
     white-space: nowrap;
     text-decoration: none;
 }
-.links li p {
-    padding: 10px;
-    color: #000;
-    display: none;
-    font-weight: 500;
-    white-space: nowrap;
-    text-decoration: none;
-}
-.sidebar:hover .links li p {
-    display: block;
-}
-.sidebar:hover .links li a {
+
+.sidebar:hover .links li a, .sidebar:hover .links li p {
     display: block;
 }
 
@@ -133,13 +125,45 @@ body {
     margin-top: 20px;
 }
 
-/* Main Content */
+/* Submenu styles */
+.submenu {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%; /* Position it below the parent item */
+    background-color: rgba(255, 255, 255, 0.9);
+    list-style: none;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    z-index: 100; /* Ensure it appears above other content */
+    width: 100%; /* Make the submenu width same as the parent item */
+}
+
+.sidebar .dropdown {
+    position: relative;
+}
+
+.sidebar .dropdown:hover .submenu {
+    display: block;
+    position: absolute; /* Make the submenu part of the normal flow */
+}
+
+
+
+/* Main content */
 section {
     margin-left: 110px;
     padding: 20px;
     width: calc(100% - 110px);
     transition: width 0.3s ease;
 }
+
+.sidebar:hover + section {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+}
+
 .dashboard {
     display: flex;
     margin-top: 20px;
@@ -147,17 +171,82 @@ section {
     align-items: center;
     width: 100%;
 }
-iframe {
+
+.dashboard-iframe {
     width: 100%;
     height: 800px;
     border-radius: 20px;
-    aspect-ratio: 16/9;
+
+}
+.charts-iframe {
+    width: 100%;
+    height: 700px;
+    border-radius: 20px;
 }
 
-.compost-dashboard-div{
+.description {
+    color: #fff;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.compost-dashboard-div, .solar-dashboard-div, .power_anomaly_detection_01, .power_anomaly_detection_02, .heat-outlier, .humidity-outlier,.temperature-outlier,.light-outlier,.nitrogen-outlier,.potassium-outlier, .phosphorus-outlier, .energy-prediction, .sensor-overview-div, .npk-forecast{
     display: none;
 }
 
-.solar-dashboard-div{
-    display: none;
+.compost-dashboard-div h1, .solar-dashboard-div h1, .power_anomaly_detection_01 h1, .power_anomaly_detection_02 h1, .heat-outlier h1, .humidity-outlier h1, .temperature-outlier h1, .light-outlier h1, .nitrogen-outlier h1, .potassium-outlier h1, .phosphorus-outlier h1, .energy-prediction h1, .sensor-overview-div h1, .npk-forecast h1{   
+    color: #fff;
+}
+
+.energy-prediction .dashboard table {
+    width: 100%;
+    height: 800px;
+    color: #000000; /* Set text color to black */
+    background-color: #ffffff; /* Set a solid background color */
+    border-collapse: collapse; /* Ensure borders are collapsed for better styling */
+}
+
+.energy-prediction .dashboard table th,
+.energy-prediction .dashboard table td {
+    border: 1px solid #000000; /* Add a solid border to table cells */
+    padding: 8px; /* Add some padding for better spacing */
+    text-align: left; /* Align text to the left */
+}
+
+.energy-prediction .dashboard table th {
+    background-color: #f2f2f2; /* Add a different background color for header cells */
+}
+
+.pic{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+}
+#T_f1b65 {
+    width: 100%;
+    height: 800px;
+    color: #000000; /* Set text color to black */
+    background-color: #ffffff; /* Set a solid background color */
+    border-collapse: collapse; /* Ensure borders are collapsed for better styling */
+}
+
+#T_f1b65 th,
+#T_f1b65 td {
+    border: 1px solid #000000; /* Add a solid border to table cells */
+    padding: 8px; /* Add some padding for better spacing */
+    text-align: left; /* Align text to the left */
+}
+
+#T_f1b65 th {
+    background-color: #f2f2f2; /* Add a different background color for header cells */
+}
+
+/* Highlight specific cells in red */
+#T_f1b65_row3_col0, #T_f1b65_row3_col1, #T_f1b65_row3_col2, 
+#T_f1b65_row4_col0, #T_f1b65_row4_col1, #T_f1b65_row4_col2, 
+#T_f1b65_row5_col0, #T_f1b65_row5_col1, #T_f1b65_row5_col2, 
+#T_f1b65_row6_col0, #T_f1b65_row6_col1, #T_f1b65_row6_col2 {
+    color: red;
 }

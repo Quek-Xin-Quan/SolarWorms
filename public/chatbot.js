@@ -1,7 +1,7 @@
 class Chatbox {
     constructor() {
             this.args = {
-                openButton: document.querySelector('.chatbox__button'),
+                openButton: document.querySelector('.chatbox__button button'),
                 chatBox: document.querySelector('.chatbox__support'),
                 sendButton: document.querySelector('.send__button')
             }
@@ -45,7 +45,7 @@ class Chatbox {
         
         query({"inputs": text1}).then((response) => {
             console.log(response);
-            let generatedText = response.choices[0].text;
+            let generatedText = response.choices[0].message.content;
             // let cleanedText = generatedText.replace(text1, ''); // This will remove the user's input from the generated text
             console.log(generatedText);
             let msg2 =  {name: "Bot", message: generatedText};
@@ -81,18 +81,17 @@ class Chatbox {
 
 }
 async function query(data) {
-    const endpoint = 'https://ai-s10242300ai943195149526.openai.azure.com';
     const apiKey = '340562357d824bc2a47c3ab18a1ec4e4'; // Replace with your actual API key
-    const model = 'gpt-35-turbo';   
 
-    const response = await fetch(`${endpoint}/openai/deployments/${model}/completions?api-version=2022-12-01`, {
+    const response = await fetch(`https://ai-s10242300ai943195149526.openai.azure.com/openai/deployments/gpt-35-turbo/chat/completions?api-version=2023-03-15-preview`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'api-key': apiKey
         },
         body: JSON.stringify({
-            prompt: [data.inputs],
+            model: 'gpt-35-turbo',
+            messages: [{ role: 'user', content: data.inputs }],
             max_tokens: 1000
         })
     });
@@ -105,6 +104,5 @@ async function query(data) {
     console.log(result);
     return result;
 }
-
 const chatbox = new Chatbox();
 chatbox.display();

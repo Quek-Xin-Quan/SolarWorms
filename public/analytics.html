@@ -2,56 +2,83 @@
 <html lang="en">
   <head>
     <meta application/json charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Analytics</title>
     <!-- Linking Google font link for icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-    <link rel="stylesheet" href="analytics.css">
-    <link rel="stylesheet" href="chatbot.css">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="analytics.css" />
+    <link rel="stylesheet" href="chatbot.css" />
   </head>
   <body>
     <aside class="sidebar">
       <div class="logo">
-        <img src="images/a_stylized_illustration_of_a_worm_solarworm_wearing_sunglasses_and_a_smile_surrounded_by_solar_panels_and_composting_materials_like_leaves_and_fruit_peels_the_worm_is_holding_a_small_.jpeg" alt="logo">
+        <img
+          src="images/a_stylized_illustration_of_a_worm_solarworm_wearing_sunglasses_and_a_smile_surrounded_by_solar_panels_and_composting_materials_like_leaves_and_fruit_peels_the_worm_is_holding_a_small_.jpeg"
+          alt="logo"
+        />
         <h2>Analytics</h2>
       </div>
       <ul class="links">
         <h4>Composting</h4>
         <li id="compost-dashboard">
           <span class="material-symbols-outlined">compost</span>
-          <p >Dashboard</p>
+          <p>Dashboard</p>
         </li>
-        <li>
-          <span class="material-symbols-outlined">warning</span>
-          <p>Detection</p>
-        </li>
-        <li>
+        <li id = "forecast">
           <span class="material-symbols-outlined">flag</span>
           <p>Forecast</p>
         </li>
-        <hr>
+        <li class="dropdown">
+          <span class="material-symbols-outlined">menu</span>
+          <p>Outliers</p>
+          <ul class="submenu">
+            <li class="heat" id="heat"><a href="#">Heat</a></li>
+            <li class="humidity" id="humidity"><a href="#">Humidity</a></li>
+            <li class="temperature" id="temperature">
+              <a href="#">Temperature</a>
+            </li>
+            <li class="light" id="light"><a href="#">Light</a></li>
+            <li class="nitrogen" id="nitrogen"><a href="#">Nitrogen</a></li>
+            <li class="potassium" id="potassium"><a href="#">Potassium</a></li>
+            <li class="phosphorus" id="phosphorus">
+              <a href="#">Phosphorus</a>
+            </li>
+            <li class="sensor" id="sensor"><a href="#">Sensor Overview</a></li>
+          </ul>
+        </li>
+        <hr />
         <h4>Solar</h4>
         <li id="solar-dashboard">
           <span class="material-symbols-outlined">Solar_Power</span>
-          <p >Dashboard</p>
+          <p>Dashboard</p>
         </li>
-        <li>
+        <li id="anomaly-detection1">
           <span class="material-symbols-outlined">warning</span>
-          <p>Detection</p>
+          <p>Detection 1</p>
         </li>
-        <li>
+        <li id="anomaly-detection2">
+          <span class="material-symbols-outlined">warning</span>
+          <p>Detection 2</p>
+        </li>
+        <li id="prediction">
           <span class="material-symbols-outlined">ambient_screen</span>
-          <p>Forecast</p>
+          <p>Energy Prediction</p>
         </li>
         <!-- <li>
-          <span class="material-symbols-outlined">pacemaker</span>
-          <p>Theme Maker</p>
-        </li>
-        <li>
+            
+        </li> -->
+        <!-- <li>
           <span class="material-symbols-outlined">monitoring</span>
-          <p>Analytic</p> -->
-        </li>
-        <hr>
+          <p>Analytic</p>
+        </li> -->
+        <hr />
         <li>
           <span class="material-symbols-outlined">home</span>
           <a href="loggedIn.html">Home</a>
@@ -60,56 +87,393 @@
           <span class="material-symbols-outlined">logout</span>
           <a href="index.html">Logout</a>
         </li>
-        
       </ul>
     </aside>
     <section>
       <div id="compost-dashboard-div" class="compost-dashboard-div">
         <h1>Composting Dashboard</h1>
         <div class="dashboard">
-          <iframe title="DEA Assignment 2 Quek Xin Quan" width="1500" height="600" src="https://app.powerbi.com/reportEmbed?reportId=371abe13-a50e-43a7-bcf0-ffb8ecec2ec2&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1" frameborder="0" allowFullScreen="true"></iframe>
+          <iframe
+            class="dashboard-iframe"
+            title="mock"
+            width="1140"
+            height="541.25"
+            src="https://app.powerbi.com/reportEmbed?reportId=9430dc91-4230-49b1-b491-e439a96ebbf8&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1"
+            frameborder="0"
+            allowfullscreen="true"
+          ></iframe>
         </div>
       </div>
 
-      <div id="solar-dashboard-div" class="solar-dashboard-div"> 
+      <div id="heat-outlier" class="heat-outlier">
+        <h1>Heat Outliers</h1>
+        <div class="dashboard">
+          <iframe
+            class="dashboard-iframe"
+            title="Heat Outlier"
+            width="1140"
+            height="541.25"
+            src="./Heat01_outlier_visual.html"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </div>
+      <div id="humidity-outlier" class="humidity-outlier">
+        <h1>Humidity Outliers</h1>
+        <div class="dashboard">
+          <iframe
+            class="dashboard-iframe"
+            title="Humidity Outlier"
+            width="1140"
+            height="541.25"
+            src="./Hum01_outlier_visual.html"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </div>
+      <div id="temperature-outlier" class="temperature-outlier">
+        <h1>Temperature Outliers</h1>
+        <div class="dashboard">
+          <iframe
+            class="dashboard-iframe"
+            title="Temperature outlier"
+            width="1140"
+            height="541.25"
+            src="./Temp01_outlier_visual.html"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </div>
+      <div id="light-outlier" class="light-outlier">
+        <h1>Light Outliers</h1>
+        <div class="dashboard">
+          <iframe
+            class="dashboard-iframe"
+            title="Light Outlier"
+            width="1140"
+            height="541.25"
+            src="./Light_Intensity_outlier_visual.html"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </div>
+      <div id="nitrogen-outlier" class="nitrogen-outlier">
+        <h1>Nitrogen Outliers</h1>
+        <div class="dashboard">
+          <iframe
+            class="dashboard-iframe"
+            title="Nitrogen Outlier"
+            width="1140"
+            height="541.25"
+            src="./Nitrogen01_outlier_visual.html"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </div>
+      <div id="potassium-outlier" class="potassium-outlier">
+        <h1>Potassium Outliers</h1>
+        <div class="dashboard">
+          <iframe
+            class="dashboard-iframe"
+            title="Potassium Outlier"
+            width="1140"
+            height="541.25"
+            src="./Potassium01_outlier_visual.html"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </div>
+      <div id="phosphorus-outlier" class="phosphorus-outlier">
+        <h1>Phosphorus Outliers</h1>
+        <div class="dashboard">
+          <iframe
+            class="dashboard-iframe"
+            title="phosphorus Outlier"
+            width="1140"
+            height="541.25"
+            src="./Phosphorous01_outlier_visual.html"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </div>
+
+      <div id="sensor-overview-div" class="sensor-overview-div">
+        <h1>Sensor Overview</h1>
+        <div class="dashboard">
+          <iframe
+            class="dashboard-iframe"
+            title="Sensor Overview"
+            width="1140"
+            height="541.25"
+            src="./Anomaly_pie_chart.html"
+            frameborder="0"
+          ></iframe>
+        </div>
+        <div class="pic">
+          <img src="images/SHAP_plot.png" alt="Sensor Overview" />
+        </div>
+        <h3 class="description">
+          Based on our analysis, the 'Nitrogen' sensor seems to cause the most data anomalies. We recommend upgrading the sensor with the below:
+          <br>
+          EcoWitt Sensors:https://www.amazon.com/dp/B0CN32DP48?ref_=cm_sw_r_cp_ud_dp_3GSSZ68HF23DHT3QHBGY
+          <br>
+          Monty Sensors: https://montycompost.co/
+        </h3>
+      </div>
+
+      <div id = "npk-forecast" class="npk-forecast">
+        <h1>NPK Forecast</h1>
+        <div class="dashboard">
+          <table id="T_f1b65" class="npk-forecast-table">
+            <thead>
+              <tr>
+                <th class="blank level0" >&nbsp;</th>
+                <th id="T_f1b65_level0_col0" class="col_heading level0 col0" >Phos_predicted</th>
+                <th id="T_f1b65_level0_col1" class="col_heading level0 col1" >Nitro_predicted</th>
+                <th id="T_f1b65_level0_col2" class="col_heading level0 col2" >Potas_predicted</th>
+              </tr>
+              <tr>
+                <th class="index_name level0" >Timestamp</th>
+                <th class="blank col0" >&nbsp;</th>
+                <th class="blank col1" >&nbsp;</th>
+                <th class="blank col2" >&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th id="T_f1b65_level0_row0" class="row_heading level0 row0" >2024-05-23 18:00:00</th>
+                <td id="T_f1b65_row0_col0" class="data row0 col0" >74.110000</td>
+                <td id="T_f1b65_row0_col1" class="data row0 col1" >84.610000</td>
+                <td id="T_f1b65_row0_col2" class="data row0 col2" >71.080000</td>
+              </tr>
+              <tr>
+                <th id="T_f1b65_level0_row1" class="row_heading level0 row1" >2024-05-23 18:10:00</th>
+                <td id="T_f1b65_row1_col0" class="data row1 col0" >74.170000</td>
+                <td id="T_f1b65_row1_col1" class="data row1 col1" >84.700000</td>
+                <td id="T_f1b65_row1_col2" class="data row1 col2" >71.110000</td>
+              </tr>
+              <tr>
+                <th id="T_f1b65_level0_row2" class="row_heading level0 row2" >2024-05-23 18:20:00</th>
+                <td id="T_f1b65_row2_col0" class="data row2 col0" >74.240000</td>
+                <td id="T_f1b65_row2_col1" class="data row2 col1" >84.790000</td>
+                <td id="T_f1b65_row2_col2" class="data row2 col2" >71.140000</td>
+              </tr>
+              <tr>
+                <th id="T_f1b65_level0_row3" class="row_heading level0 row3" >2024-05-23 18:30:00</th>
+                <td id="T_f1b65_row3_col0" class="data row3 col0" >74.300000</td>
+                <td id="T_f1b65_row3_col1" class="data row3 col1" >84.880000</td>
+                <td id="T_f1b65_row3_col2" class="data row3 col2" >71.180000</td>
+              </tr>
+              <tr>
+                <th id="T_f1b65_level0_row4" class="row_heading level0 row4" >2024-05-23 18:40:00</th>
+                <td id="T_f1b65_row4_col0" class="data row4 col0" >74.370000</td>
+                <td id="T_f1b65_row4_col1" class="data row4 col1" >84.980000</td>
+                <td id="T_f1b65_row4_col2" class="data row4 col2" >71.230000</td>
+              </tr>
+              <tr>
+                <th id="T_f1b65_level0_row5" class="row_heading level0 row5" >2024-05-23 18:50:00</th>
+                <td id="T_f1b65_row5_col0" class="data row5 col0" >74.440000</td>
+                <td id="T_f1b65_row5_col1" class="data row5 col1" >85.080000</td>
+                <td id="T_f1b65_row5_col2" class="data row5 col2" >71.280000</td>
+              </tr>
+              <tr>
+                <th id="T_f1b65_level0_row6" class="row_heading level0 row6" >2024-05-23 19:00:00</th>
+                <td id="T_f1b65_row6_col0" class="data row6 col0" >74.510000</td>
+                <td id="T_f1b65_row6_col1" class="data row6 col1" >85.180000</td>
+                <td id="T_f1b65_row6_col2" class="data row6 col2" >71.340000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      
+      </div>
+
+      <div id="energy-prediction" class="energy-prediction">
+        <h1>Energy Prediction</h1>
+        <div class="dashboard">
+          <table border="1" class="dataframe-table-table-striped">
+            <thead>
+              <tr style="text-align: right">
+                <th></th>
+                <th>MeanTemp</th>
+                <th>MeanWindSpeed</th>
+                <th>TotalDailyRainfall</th>
+                <th>DPM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>2024-05-01</th>
+                <td>27.6356</td>
+                <td>5.0527</td>
+                <td>8.5698</td>
+                <td>4094.2501</td>
+              </tr>
+              <tr>
+                <th>2024-05-02</th>
+                <td>27.6356</td>
+                <td>5.0527</td>
+                <td>8.5699</td>
+                <td>4094.2497</td>
+              </tr>
+              <tr>
+                <th>2024-05-03</th>
+                <td>27.6356</td>
+                <td>5.0527</td>
+                <td>8.5699</td>
+                <td>4094.2492</td>
+              </tr>
+              <tr>
+                <th>2024-05-04</th>
+                <td>27.6356</td>
+                <td>5.0527</td>
+                <td>8.5699</td>
+                <td>4094.2488</td>
+              </tr>
+              <tr>
+                <th>2024-05-05</th>
+                <td>27.6356</td>
+                <td>5.0527</td>
+                <td>8.5699</td>
+                <td>4094.2484</td>
+              </tr>
+              <tr>
+                <th>2024-05-06</th>
+                <td>27.6356</td>
+                <td>5.0527</td>
+                <td>8.5699</td>
+                <td>4094.2480</td>
+              </tr>
+              <tr>
+                <th>2024-05-07</th>
+                <td>27.6356</td>
+                <td>5.0527</td>
+                <td>8.5699</td>
+                <td>4094.2476</td>
+              </tr>
+              <tr>
+                <th>2024-05-08</th>
+                <td>27.6356</td>
+                <td>5.0527</td>
+                <td>8.5699</td>
+                <td>4094.2473</td>
+              </tr>
+              <tr>
+                <th>2024-05-09</th>
+                <td>27.6356</td>
+                <td>5.0527</td>
+                <td>8.5699</td>
+                <td>4094.2470</td>
+              </tr>
+              <tr>
+                <th>2024-05-10</th>
+                <td>27.6356</td>
+                <td>5.0527</td>
+                <td>8.5699</td>
+                <td>4094.2467</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="power_anomaly_detection_01" class="power_anomaly_detection_01">
+        <h1>Power Anomaly Detection 1</h1>
+        <div class="dashboard">
+          <iframe
+            class="charts-iframe"
+            title="Power Anomaly Detection 1"
+            width="1140"
+            height="541.25"
+            src="./power_anomaly_detection_01.html"
+            frameborder="0"
+          ></iframe>
+        </div>
+        <div class="description">
+          <h3>
+            Anomalies indicate unexpectedly low power energy generation during
+            peak hours, potentially highlighting unusual behavior, system or
+            sensor issues.
+          </h3>
+          <h3>
+            Urgent Anomalies represent low power generation during peak hours
+            when some environmental factors suggest high power generation,
+            indicating a more severe problem.
+          </h3>
+        </div>
+      </div>
+
+      <div id="power_anomaly_detection_02" class="power_anomaly_detection_02">
+        <h1>Power Anomaly Detection 2</h1>
+        <div class="dashboard">
+          <iframe
+            class="charts-iframe"
+            title="Power Anomaly Detection 2"
+            src="./power_anomaly_detection_02.html"
+            frameborder="0"
+          ></iframe>
+        </div>
+        <div class="description">
+          <h3>
+            Anomalies indicate unexpectedly low power energy generation during
+            peak hours, potentially highlighting unusual behavior, system or
+            sensor issues.
+          </h3>
+          <h3>
+            Urgent Anomalies represent low power generation during peak hours
+            when some environmental factors suggest high power generation,
+            indicating a more severe problem.
+          </h3>
+        </div>
+      </div>
+
+      <div id="solar-dashboard-div" class="solar-dashboard-div">
         <h1>Solar Dashboard</h1>
         <div class="dashboard">
-          <iframe title="Week 3 Sales Analysis after part1" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=8df277db-aabb-4d76-8e28-f19b7f0895e9&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1" frameborder="0" allowFullScreen="true"></iframe>
+          <iframe
+            class="dashboard-iframe"
+            title="Solar Panel Dashboard"
+            width="1140"
+            height="541.25"
+            src="https://app.powerbi.com/reportEmbed?reportId=e88ab56d-fda0-4b4a-a959-d38a32da74c4&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1"
+            frameborder="0"
+            allowfullscreen="true"
+          ></iframe>
         </div>
       </div>
     </section>
+
     <div class="container">
       <div class="chatbox">
         <div class="chatbox__support">
-            <div class="chatbox__header">
-                <div class="chatbox__image--header">
-                  <img src="images/robot.png" alt="image">
-                      <!-- <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image"> -->
-                </div>
-                <div class="chatbox__content--header">
-                  <h4 class="chatbox__heading--header">Ecobot</h4>
-                  <p class="chatbox__description--header">Hi, How may I help you?</p>
-                </div>
-              </div>
-              <div class="chatbox__messages">
-                <div></div>
-              </div>
-              <div class="chatbox__footer">
-                <input type="text" placeholder="Write a message...">
-                <button class="chatbox__send--footer send__button">Send</button>
-              </div>
+          <div class="chatbox__header">
+            <div class="chatbox__image--header">
+              <img src="images/robot.png" alt="image" />
+              <!-- <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image"> -->
+            </div>
+            <div class="chatbox__content--header">
+              <h4 class="chatbox__heading--header">Ecobot</h4>
+              <p class="chatbox__description--header">
+                Hi, How may I help you?
+              </p>
+            </div>
           </div>
-          <div class="chatbox__button">
-              <button><img src="./images/chat.png" /></button>
+          <div class="chatbox__messages">
+            <div></div>
           </div>
+          <div class="chatbox__footer">
+            <input type="text" placeholder="Write a message..." />
+            <button class="chatbox__send--footer send__button">Send</button>
+          </div>
+        </div>
+        <div class="chatbox__button">
+          <button><img src="./images/chat.png" /></button>
+        </div>
       </div>
     </div>
-      
+
     <script type="text/javascript" src="chatbot.js"></script>
 
     <script src="analytics.js" defer></script>
-
-
-
   </body>
 </html>
