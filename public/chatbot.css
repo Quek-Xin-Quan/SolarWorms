@@ -4,12 +4,12 @@
     padding: 0;
 }
 
-body {
+/* body {
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
     font-size: 100%;
-    background: #F1F1F1;
-}
+    background: transparent;
+} */
 
 *, html {
     --primaryGradient: linear-gradient(93.12deg, #0c8b3d 0.52%, #019439 100%);
@@ -115,7 +115,9 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 15px 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-right: 20px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     box-shadow: var(--primaryBoxShadow);

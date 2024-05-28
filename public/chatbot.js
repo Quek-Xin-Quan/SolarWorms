@@ -43,13 +43,12 @@ class Chatbox {
         let msg1 =  {name: "User", message: text1};
         this.messages.push(msg1);
         
-
         query({"inputs": text1}).then((response) => {
             console.log(response);
-            let generatedText = response[0].generated_text;
-            let cleanedText = generatedText.replace(text1, ''); // This will remove the user's input from the generated text
-            console.log(cleanedText);
-            let msg2 =  {name: "Bot", message: cleanedText};
+            let generatedText = response.choices[0].text;
+            // let cleanedText = generatedText.replace(text1, ''); // This will remove the user's input from the generated text
+            console.log(generatedText);
+            let msg2 =  {name: "Bot", message: generatedText};
             this.messages.push(msg2);
             textfield.value = '';
             this.updateChatText(chatBox);
@@ -77,26 +76,35 @@ class Chatbox {
         chatmessages.innerHTML = html;
     }
     
+    
 
 
 }
 async function query(data) {
-    const response = await fetch(
-        "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3",
-        {
-            headers: { 
-                Authorization: "Bearer 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",
-                'Content-Type': 'application/json' // Add this line
-            },
-            method: "POST",
-            body: JSON.stringify(data),
-        }
-    );
+    const endpoint = 'https://ai-s10242300ai943195149526.openai.azure.com';
+    const apiKey = '340562357d824bc2a47c3ab18a1ec4e4'; // Replace with your actual API key
+    const model = 'gpt-35-turbo';   
+
+    const response = await fetch(`${endpoint}/openai/deployments/${model}/completions?api-version=2022-12-01`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'api-key': apiKey
+        },
+        body: JSON.stringify({
+            prompt: [data.inputs],
+            max_tokens: 1000
+        })
+    });
+
+    if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+    }
+
     const result = await response.json();
+    console.log(result);
     return result;
 }
-// query({"inputs": "Can you please let us know more details about your "}).then((response) => {
-//     console.log(JSON.stringify(response));
-// });
+
 const chatbox = new Chatbox();
 chatbox.display();
