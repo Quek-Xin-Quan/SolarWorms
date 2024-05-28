@@ -1,71 +1,101 @@
 <!DOCTYPE html>
-<html>
-  <head>
-      <Title>
-         SolarWorms
-      </Title>
-      <style>
-        .webname {
-          text-align: center;
-          font-size: 50px;
-          
-        }
-        .container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100px;  
-        }
-        .ChatBot {  
-          margin-right: 20px;
-          font-size: 20px;
-          background-color: rgb(87, 214, 87);
-          border-radius: 4px;
-          cursor: pointer;
-        }
-        .Solar{
-          font-size: 20px;
-          margin-right: 20px;
-          background-color: rgb(65, 111, 240);
-          border-radius: 4px;
-          cursor: pointer;
-        }
-        .imagecontainer{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .solarworm{
-          width: 500px;
-        }
-        .Composting{
-          font-size: 20px;
-          margin-right: 20px;
-          background-color: rgb(240, 240, 65);
-          border-radius: 4px;
-          cursor: pointer;
-        }
-       
-      </style>
-  </head>
-  <body>
-    <p class="webname"> 
-      SolarWorms
-    </p>
-    <div class="container">
-      <button class="ChatBot" onclick=" location.href ='https://bf9cd87eafe031bc55.gradio.live/'"> 
-        ChatBot 
-      </button>
-      <button class="Composting" onclick="location.href = 'Composting.html'">
-        Composting
-      </button>
-      <button class="Solar" onclick="location.href = 'Solar.html'">
-        Solar
-      </button>
-    </div>
-    <div class="imagecontainer">
-      <img class="solarworm" src="images/a_stylized_illustration_of_a_worm_solarworm_wearing_sunglasses_and_a_smile_surrounded_by_solar_panels_and_composting_materials_like_leaves_and_fruit_peels_the_worm_is_holding_a_small_.jpeg" alt="solarworm">
-    </div>
-  </body>
-</html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width
+    initial-scale=1.0">
+    <title>Solar Worms</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 
+<body>
+    <header>
+        <h2 class="logo">SolarWorms</h2>
+        <nav class="navigation">
+            <a href="index.html">Home</a>
+            <a href="#">About</a>
+            <a href="#">Analytics</a>
+            <a href="#">Contact</a>
+            <button class = "btnLogin-popup">Login</button>
+        </nav>    
+    </header>
+
+    <video autoplay loop muted plays-inline class="back-video"> 
+        <source src="videos/vid5.mp4" type="video/mp4">
+    </video>
+
+    <div class="content">
+        <h1>SolarVermi Revolution</h1>
+        <p>Solar Solutions , Worm Innovations</p>
+        <div class="btn-container">
+            <button class="btn-learn" type="button"><span class="spn-learn"></span>Learn More</button>
+            <button class="btn-contact" type="button"><span class="spn-contact"></span>Contact Us</button>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <span class="icon-close"><ion-icon name="close"></ion-icon>
+        </span>
+        <div class="form-box login">
+            <h2>Login</h2>
+            <form action="#">   
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="email"  id = "login_email" required>
+                    <label >Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" id = "login_password" required>
+                    <label >Password</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox">Remember me</label>
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn" id = "login">Login</button>
+                <div class="login-register">
+                    <p>Don't have an account? <a href="#" class="register-link">Register</a></p>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="form-box register">
+            <h2>Registration</h2>
+            <form action="#">   
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    <input type="text"  id = "reg_username"required>
+                    <label >Username</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="email"  id = "reg_email" required>
+                    <label >Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password"  id = "reg_password" required>
+                    <label >Password</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox">I agree to the terms & conditions</label>
+                </div>
+                <button type="submit" class="btn" id = "register">Register</button>
+                <div class="login-register">
+                    <p>Already have an account? <a href="#" class="login-link">Login</a></p>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+    <script type = "module" src="index.js" defer></script>
+    <script src="script.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>

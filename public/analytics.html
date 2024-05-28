@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta application/json charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>analytics</title>
+    <!-- Linking Google font link for icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" href="analytics.css">
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="images/a_stylized_illustration_of_a_worm_solarworm_wearing_sunglasses_and_a_smile_surrounded_by_solar_panels_and_composting_materials_like_leaves_and_fruit_peels_the_worm_is_holding_a_small_.jpeg" alt="logo">
+        <h2>Analytics</h2>
+      </div>
+      <ul class="links">
+        <h4>Composting</h4>
+        <li id="compost-dashboard">
+          <span class="material-symbols-outlined">compost</span>
+          <p >Dashboard</p>
+        </li>
+        <li>
+          <span class="material-symbols-outlined">show_chart</span>
+          <p>Revenue</p>
+        </li>
+        <li>
+          <span class="material-symbols-outlined">flag</span>
+          <p>Reports</p>
+        </li>
+        <hr>
+        <h4>Solar</h4>
+        <li id="solar-dashboard">
+          <span class="material-symbols-outlined">Solar_Power</span>
+          <p >Dashboard</p>
+        </li>
+        <li>
+          <span class="material-symbols-outlined">group</span>
+          <p>Developer </p>
+        </li>
+        <li>
+          <span class="material-symbols-outlined">ambient_screen</span>
+          <p>Magic Build</p>
+        </li>
+        <li>
+          <span class="material-symbols-outlined">pacemaker</span>
+          <p >Theme Maker</p>
+        </li>
+        <li>
+          <span class="material-symbols-outlined">monitoring</span>
+          <p>Analytic</p>
+        </li>
+        <hr>
+        <li>
+          <span class="material-symbols-outlined">home</span>
+          <a href="loggedIn.html">Home</a>
+        </li>
+        <li class="logout-link">
+          <span class="material-symbols-outlined">logout</span>
+          <a href="index.html">Logout</a>
+        </li>
+        
+      </ul>
+    </aside>
+    <section>
+      <div id="compost-dashboard-div" class="compost-dashboard-div">
+        <h1>Composting Dashboard</h1>
+        <div class="dashboard">
+          <iframe title="DEA Assignment 2 Quek Xin Quan" width="1500" height="600" src="https://app.powerbi.com/reportEmbed?reportId=371abe13-a50e-43a7-bcf0-ffb8ecec2ec2&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1" frameborder="0" allowFullScreen="true"></iframe>
+        </div>
+      </div>
+
+      <div id="solar-dashboard-div" class="solar-dashboard-div"> 
+        <h1>Solar Dashboard</h1>
+        <div class="dashboard">
+          <iframe title="Week 3 Sales Analysis after part1" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=8df277db-aabb-4d76-8e28-f19b7f0895e9&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1" frameborder="0" allowFullScreen="true"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <script src="analytics.js" defer></script>
+
+
+
+  </body>
+</html>
