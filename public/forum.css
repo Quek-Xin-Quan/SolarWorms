@@ -1,0 +1,101 @@
+  .comment-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #4CAF50; /* Green */
+      border: none;
+      color: white;
+      width: 52px;
+      height: 52px;
+      padding: 10px;
+      border-top-left-radius: 50px;
+      border-top-right-radius: 50px;
+      border-bottom-right-radius: 50px;
+      cursor: pointer;
+      z-index: 1000; /* Ensure it's above other elements */
+  }
+
+
+  .comments-section {
+    display: none; /* Initially hidden */
+    position: fixed;
+    bottom: 80px; /* Adjust based on button position */
+    left: 20px; /* Align with button */
+    width: 700px; /* Adjust as needed */
+    height: 600px; /* Adjust as needed */
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 999; /* Ensure it's above other elements */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    border-radius: 15px; /* Rounded corners */
+  }
+
+  .comments-section h2 {
+    margin: 0;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+    border-top-left-radius: 15px; /* Rounded corners for top-left */
+    border-top-right-radius: 15px; /* Rounded corners for top-right */
+  }
+
+/* Container for main content and sidebar */
+  .container {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+  }
+  
+  /* Main content area */
+  .content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  /* Sidebar area */
+  .sidebar {
+    width: 300px; /* Adjust the width as needed */
+    padding: 20px;
+    background-color: #f4f4f4; /* Optional: Background color for sidebar */
+    overflow-y: auto; /* Optional: Scroll if content overflows */
+    height: 100vh; /* Make sidebar height full viewport height */
+    position: fixed; /* Fix sidebar to the side */
+    right: 0; /* Align sidebar to the right */
+    top: 0; /* Align sidebar to the top */
+  }
+  
+  /* Additional styling for Hyvor Talk comments section */
+  hyvor-talk-comments {
+    font-family: "Nunito", sans-serif;
+    width: 100%;
+    height: calc(100vh - 40px); /* Adjust height to fit within sidebar */
+  }
+  #disqus_thread {
+    font-family: "Nunito", sans-serif;
+    width: 95%; /* Adjust width as needed */
+    max-width: 1000px; /* Maximum width */
+    height: calc(100vh - 40px); /* Adjust height as needed */
+    margin: 0 auto; /* Center the comment section */
+    padding: 10px;
+    flex: 1; /* Make it grow to fill the available space */
+    
+  }
+  #disqus_thread a {
+    color: #8dd06c !important; /* Green color for links */
+  }
+
+  #disqus_thread .post-content,
+  #disqus_thread .comment-content,
+  #disqus_thread .post-title {
+      color: #8dd06c !important; /* Green color for text */
+  }
+
+  #disqus_thread .btn,
+  #disqus_thread .button {
+      background-color: #8dd06c !important; /* Green background for buttons */
+      border-color: #8dd06c !important; /* Green border for buttons */
+      color: #fff !important; /* White text color for buttons */
+  }
+ 
+ 

@@ -9,18 +9,19 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="chatbot.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-
+    <link rel="stylesheet" href="forum.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap">
 </head>
 
 <body>
     <header>
         <h2 class="logo">SolarWorms</h2>
         <nav class="navigation">
-            <a href="index.html">Home</a>
+            <a href="#">Forum</a>
             <a href="#">About</a>
             <a href="analytics.html">Analytics</a>
             <a href="#">Contact</a>
-            <button class = "btnLogin-popup">Log Out</button>
+            <button class = "btnLogin-popup">Log Out</button>   
         </nav>    
     </header>
 
@@ -63,8 +64,33 @@
             </div>
         </div>
     </div>
-      
-    <script type="text/javascript" src="chatbot.js"></script>
+    <button class="comment-button" onclick="toggleComments()"> <img src="images/group.png" alt="Comment Icon"></button>
+
+    <!-- Comments Section -->
+    <div class="comments-section" id="comments-section">
+        <h2>Community Discussion</h2>
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            /*
+            var disqus_config = function () {
+            this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            };
+            */
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://solarworms.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    </div>
+    <script src="chatbot.js"></script>
+    <script type="text/javascript" src="loggedIn.js"></script>
+    <script id="dsq-count-scr" src="//solarworms.disqus.com/count.js" async></script>
 
 
 </body>

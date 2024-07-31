@@ -1,0 +1,259 @@
+/* Importing Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    background-image: url("images/background2.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px; /* Fixed width */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(17px);
+    -webkit-backdrop-filter: blur(17px);
+    border-right: none; /* Remove the border */
+    overflow-y: auto; /* Allow scrolling within the sidebar */
+    z-index: 1000; /* Ensure the sidebar is above other content */
+}
+
+/* Logo styles */
+.sidebar .logo {
+    color: #000;
+    display: flex;
+    align-items: center;
+    padding: 25px 10px 15px;
+}
+
+.logo img {
+    width: 43px;
+    border-radius: 50%;
+}
+
+.logo h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-left: 15px;
+}
+
+/* Links styles */
+.sidebar .links {
+    list-style: none;
+    margin-top: 20px;
+    overflow-y: auto; /* Allow scrolling within the sidebar */
+    scrollbar-width: none; /* Hide scrollbar */
+    height: calc(100% - 140px);
+}
+
+.sidebar .links::-webkit-scrollbar {
+    display: none;
+}
+
+.links li {
+    display: flex;
+    border-radius: 4px;
+    align-items: center;
+}
+
+.links li:hover {
+    cursor: pointer;
+    background: #fff;
+}
+
+.links h4 {
+    color: #000;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.links hr {
+    margin: 10px 8px;
+    border: 1px solid #000;
+}
+
+.links li span {
+    padding: 12px 10px;
+}
+
+.links li a, .links li p {
+    padding: 10px;
+    color: #000;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.links .logout-link {
+    margin-top: 20px;
+}
+
+/* Submenu styles */
+.submenu {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%; /* Position it below the parent item */
+    background-color: rgba(255, 255, 255, 0.9);
+    list-style: none;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    z-index: 100; /* Ensure it appears above other content */
+    width: 100%; /* Make the submenu width same as the parent item */
+}
+
+.sidebar .dropdown {
+    position: relative;
+}
+
+.sidebar .dropdown:hover .submenu {
+    display: block;
+    position: absolute; /* Make the submenu part of the normal flow */
+}
+
+/* Main content */
+section {
+    margin-left: 260px; /* Adjust to match the sidebar width */
+    padding: 20px;
+    width: calc(100% - 260px); /* Adjust to match the sidebar width */
+    background: transparent; /* Ensure background matches the body background */
+}
+
+.dashboard {
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.dashboard-iframe {
+    width: 100%;
+    height: 800px;
+    border-radius: 20px;
+}
+
+.charts-iframe {
+    width: 100%;
+    height: 700px;
+    border-radius: 20px;
+}
+
+.description {
+    color: #fff;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.compost-dashboard-div, .solar-dashboard-div, .power_anomaly_detection_01, .power_anomaly_detection_02, .heat-outlier, .humidity-outlier, .temperature-outlier, .light-outlier, .nitrogen-outlier, .potassium-outlier, .phosphorus-outlier, .energy-prediction1,.energy-prediction2, .sensor-overview-div, .npk-forecast, .upload-div, .monitoring-div, .estate-dashboard-div {
+    display: none;
+}
+
+.compost-dashboard-div h1, .solar-dashboard-div h1, .power_anomaly_detection_01 h1, .power_anomaly_detection_02 h1, .heat-outlier h1, .humidity-outlier h1, .temperature-outlier h1, .light-outlier h1, .nitrogen-outlier h1, .potassium-outlier h1, .phosphorus-outlier h1, .sensor-overview-div h1, .npk-forecast h1, .upload-div h1, .energy-prediction1 h1, .energy-prediction2 h1, .monitoring-div h1, .estate-dashboard-div h1{   
+    color: #fff;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.npk-forecast .button button{
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #46923c;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+}
+.npk-forecast .button{
+    display: flex;
+    justify-content: flex-end;
+}
+.npk-forecast  table , .upload-div  table {
+    width: 100%;
+    height: 800px;
+    color: #000000; /* Set text color to black */
+    background-color: #ffffff; /* Set a solid background color */
+    border-collapse: collapse; /* Ensure borders are collapsed for better styling */
+}
+
+.npk-forecast table th, .upload-div  table th,
+.npk-forecast  table td, .upload-div	table td {
+    border: 1px solid #000000; /* Add a solid border to table cells */
+    padding: 8px; /* Add some padding for better spacing */
+    text-align: left; /* Align text to the left */
+}
+
+.energy-prediction .dashboard, .npk-forecast  table th , .upload-div  table th {
+    background-color: #f2f2f2; /* Add a different background color for header cells */
+}
+.upload-form-div{
+	background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+	z-index: 999999;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+.form-group input {
+	width: 100%;
+	padding: 8px;
+	box-sizing: border-box;
+}
+.btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #46923c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: #46923c;
+}
+.table-container {
+  margin-top: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.npk-form-group {
+	margin-bottom: 15px;
+}
+.npk-form-group label {
+	font-size: large;
+	display: block;
+	margin-bottom: 5px;
+	color:#54e90f;
+}
+.npk-form-group input {
+	width: 100%;
+	padding: 8px;
+	box-sizing: border-box;
+}

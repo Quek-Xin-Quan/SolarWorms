@@ -3,6 +3,9 @@
   <head>
     <meta application/json charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    
+    
     <title>Analytics</title>
     <!-- Linking Google font link for icons -->
     <link
@@ -13,7 +16,7 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="analytics.css" />
+    <link rel="stylesheet" href="analytic.css" />
     <link rel="stylesheet" href="chatbot.css" />
   </head>
   <body>
@@ -54,23 +57,41 @@
           </ul>
         </li>
         <hr />
-        <h4>Solar</h4>
+        <h4>Solar (SOE)</h4>
         <li id="solar-dashboard">
           <span class="material-symbols-outlined">Solar_Power</span>
           <p>Dashboard</p>
         </li>
-        <li id="anomaly-detection1">
-          <span class="material-symbols-outlined">warning</span>
-          <p>Detection 1</p>
-        </li>
-        <li id="anomaly-detection2">
-          <span class="material-symbols-outlined">warning</span>
-          <p>Detection 2</p>
-        </li>
-        <li id="prediction">
+
+
+        <li class="dropdown">
           <span class="material-symbols-outlined">ambient_screen</span>
-          <p>Energy Prediction</p>
+          <p>Energy Forecast</p>
+          <ul class="submenu">
+            <li id="prediction1">
+              <p>COM 1</p>
+            </li>
+            <li id="prediction2">
+              <p>COM 2</p>
+            </li>
+          </ul>
         </li>
+        
+
+        <li class="dropdown">
+          <span class="material-symbols-outlined">warning</span>
+          <p>Anomaly Detection</p>
+          <ul class="submenu">
+            <li id="anomaly-detection1">
+    
+              <p>Detection 1</p>
+            </li>
+            <li id="anomaly-detection2">
+              <p>Detection 2</p>
+            </li>
+          </ul>
+        </li>
+        
         <!-- <li>
             
         </li> -->
@@ -78,6 +99,24 @@
           <span class="material-symbols-outlined">monitoring</span>
           <p>Analytic</p>
         </li> -->
+        <hr />
+        <h4>Solar (Estate)</h4>
+
+          <li id="solar-estate-dashboard">
+            <span class="material-symbols-outlined">Solar_Power</span>
+            <p>Dashboard</p>
+          </li>
+
+          <li id="monitoring">
+            <span class="material-symbols-outlined">monitoring</span>
+            <p>Monitor</p>
+          </li>
+
+          <li id="upload">
+            <span class="material-symbols-outlined">Cloud_Upload</span>
+            <p>Upload Files</p>
+          </li>
+          
         <hr />
         <li>
           <span class="material-symbols-outlined">home</span>
@@ -98,7 +137,7 @@
             title="mock"
             width="1140"
             height="541.25"
-            src="https://app.powerbi.com/reportEmbed?reportId=9430dc91-4230-49b1-b491-e439a96ebbf8&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1"
+            src="https://app.powerbi.com/reportEmbed?reportId=ac74cd92-0720-4c20-8d2f-95bb6a9f144e&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1"
             frameborder="0"
             allowfullscreen="true"
           ></iframe>
@@ -222,158 +261,61 @@
       </div>
 
       <div id = "npk-forecast" class="npk-forecast">
-        <h1>NPK Forecast</h1>
-        <div class="dashboard">
-          <table id="T_f1b65" class="npk-forecast-table">
-            <thead>
-              <tr>
-                <th class="blank level0" >&nbsp;</th>
-                <th id="T_f1b65_level0_col0" class="col_heading level0 col0" >Phos_predicted</th>
-                <th id="T_f1b65_level0_col1" class="col_heading level0 col1" >Nitro_predicted</th>
-                <th id="T_f1b65_level0_col2" class="col_heading level0 col2" >Potas_predicted</th>
-              </tr>
-              <tr>
-                <th class="index_name level0" >Timestamp</th>
-                <th class="blank col0" >&nbsp;</th>
-                <th class="blank col1" >&nbsp;</th>
-                <th class="blank col2" >&nbsp;</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th id="T_f1b65_level0_row0" class="row_heading level0 row0" >2024-05-23 18:00:00</th>
-                <td id="T_f1b65_row0_col0" class="data row0 col0" >74.110000</td>
-                <td id="T_f1b65_row0_col1" class="data row0 col1" >84.610000</td>
-                <td id="T_f1b65_row0_col2" class="data row0 col2" >71.080000</td>
-              </tr>
-              <tr>
-                <th id="T_f1b65_level0_row1" class="row_heading level0 row1" >2024-05-23 18:10:00</th>
-                <td id="T_f1b65_row1_col0" class="data row1 col0" >74.170000</td>
-                <td id="T_f1b65_row1_col1" class="data row1 col1" >84.700000</td>
-                <td id="T_f1b65_row1_col2" class="data row1 col2" >71.110000</td>
-              </tr>
-              <tr>
-                <th id="T_f1b65_level0_row2" class="row_heading level0 row2" >2024-05-23 18:20:00</th>
-                <td id="T_f1b65_row2_col0" class="data row2 col0" >74.240000</td>
-                <td id="T_f1b65_row2_col1" class="data row2 col1" >84.790000</td>
-                <td id="T_f1b65_row2_col2" class="data row2 col2" >71.140000</td>
-              </tr>
-              <tr>
-                <th id="T_f1b65_level0_row3" class="row_heading level0 row3" >2024-05-23 18:30:00</th>
-                <td id="T_f1b65_row3_col0" class="data row3 col0" >74.300000</td>
-                <td id="T_f1b65_row3_col1" class="data row3 col1" >84.880000</td>
-                <td id="T_f1b65_row3_col2" class="data row3 col2" >71.180000</td>
-              </tr>
-              <tr>
-                <th id="T_f1b65_level0_row4" class="row_heading level0 row4" >2024-05-23 18:40:00</th>
-                <td id="T_f1b65_row4_col0" class="data row4 col0" >74.370000</td>
-                <td id="T_f1b65_row4_col1" class="data row4 col1" >84.980000</td>
-                <td id="T_f1b65_row4_col2" class="data row4 col2" >71.230000</td>
-              </tr>
-              <tr>
-                <th id="T_f1b65_level0_row5" class="row_heading level0 row5" >2024-05-23 18:50:00</th>
-                <td id="T_f1b65_row5_col0" class="data row5 col0" >74.440000</td>
-                <td id="T_f1b65_row5_col1" class="data row5 col1" >85.080000</td>
-                <td id="T_f1b65_row5_col2" class="data row5 col2" >71.280000</td>
-              </tr>
-              <tr>
-                <th id="T_f1b65_level0_row6" class="row_heading level0 row6" >2024-05-23 19:00:00</th>
-                <td id="T_f1b65_row6_col0" class="data row6 col0" >74.510000</td>
-                <td id="T_f1b65_row6_col1" class="data row6 col1" >85.180000</td>
-                <td id="T_f1b65_row6_col2" class="data row6 col2" >71.340000</td>
-              </tr>
-            </tbody>
-          </table>
+        
+        <form id="npkForm">
+          <h1>Enter NPK values for Forecast</h1>
+          <div class="npk-form-group">
+              <label for="nitrogen">Nitrogen (N):</label>
+              <input type="number" id="nitrogen-form" name="nitrogen" step="any" required>
+          </div>
+          <div class="npk-form-group">
+              <label for="phosphorus">Phosphorus (P):</label>
+              <input type="number" id="phosphorus-form" name="phosphorus" step="any" required>
+          </div>
+          <div class="npk-form-group">
+              <label for="potassium">Potassium (K):</label>
+              <input type="number" id="potassium-form" name="potassium" step="any" required>
+          </div>
+          <div class="form-group">
+            <button type="submit" id="retrain" class="btn btn-primary mt-3">Submit</button>
         </div>
+        </form>
+        <div>
+          <h1>Forecasted NPK values</h1>
+          <div class="dashboard" id="dataframe-container">
+          </div>
+        </div>
+
       
       </div>
 
-      <div id="energy-prediction" class="energy-prediction">
-        <h1>Energy Prediction</h1>
+      <div id="energy-prediction1" class="energy-prediction1">
+        <h1>Energy Forecast</h1>
         <div class="dashboard">
-          <table border="1" class="dataframe-table-table-striped">
-            <thead>
-              <tr style="text-align: right">
-                <th></th>
-                <th>MeanTemp</th>
-                <th>MeanWindSpeed</th>
-                <th>TotalDailyRainfall</th>
-                <th>DPM</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th>2024-05-01</th>
-                <td>27.6356</td>
-                <td>5.0527</td>
-                <td>8.5698</td>
-                <td>4094.2501</td>
-              </tr>
-              <tr>
-                <th>2024-05-02</th>
-                <td>27.6356</td>
-                <td>5.0527</td>
-                <td>8.5699</td>
-                <td>4094.2497</td>
-              </tr>
-              <tr>
-                <th>2024-05-03</th>
-                <td>27.6356</td>
-                <td>5.0527</td>
-                <td>8.5699</td>
-                <td>4094.2492</td>
-              </tr>
-              <tr>
-                <th>2024-05-04</th>
-                <td>27.6356</td>
-                <td>5.0527</td>
-                <td>8.5699</td>
-                <td>4094.2488</td>
-              </tr>
-              <tr>
-                <th>2024-05-05</th>
-                <td>27.6356</td>
-                <td>5.0527</td>
-                <td>8.5699</td>
-                <td>4094.2484</td>
-              </tr>
-              <tr>
-                <th>2024-05-06</th>
-                <td>27.6356</td>
-                <td>5.0527</td>
-                <td>8.5699</td>
-                <td>4094.2480</td>
-              </tr>
-              <tr>
-                <th>2024-05-07</th>
-                <td>27.6356</td>
-                <td>5.0527</td>
-                <td>8.5699</td>
-                <td>4094.2476</td>
-              </tr>
-              <tr>
-                <th>2024-05-08</th>
-                <td>27.6356</td>
-                <td>5.0527</td>
-                <td>8.5699</td>
-                <td>4094.2473</td>
-              </tr>
-              <tr>
-                <th>2024-05-09</th>
-                <td>27.6356</td>
-                <td>5.0527</td>
-                <td>8.5699</td>
-                <td>4094.2470</td>
-              </tr>
-              <tr>
-                <th>2024-05-10</th>
-                <td>27.6356</td>
-                <td>5.0527</td>
-                <td>8.5699</td>
-                <td>4094.2467</td>
-              </tr>
-            </tbody>
-          </table>
+          <iframe
+            class="charts-iframe"
+            title="Energy Prediction"
+            width="1140"
+            height="541.25"
+            src="./forecast_COM1.html"
+            frameborder="0"
+            allowfullscreen="true"
+          ></iframe>
+        </div>
+      </div>
+
+      <div id="energy-prediction2" class="energy-prediction2">
+        <h1>Energy Forecast</h1>
+        <div class="dashboard">
+          <iframe
+            class="charts-iframe"
+            title="Energy Prediction"
+            width="1140"
+            height="541.25"
+            src="./forecast_COM2.html"
+            frameborder="0"
+            allowfullscreen="true"
+          ></iframe>
         </div>
       </div>
 
@@ -385,7 +327,7 @@
             title="Power Anomaly Detection 1"
             width="1140"
             height="541.25"
-            src="./power_anomaly_detection_01.html"
+            src="./ADS_COM1.html"
             frameborder="0"
           ></iframe>
         </div>
@@ -409,7 +351,7 @@
           <iframe
             class="charts-iframe"
             title="Power Anomaly Detection 2"
-            src="./power_anomaly_detection_02.html"
+            src="./ADS_COM2.html"
             frameborder="0"
           ></iframe>
         </div>
@@ -430,17 +372,78 @@
       <div id="solar-dashboard-div" class="solar-dashboard-div">
         <h1>Solar Dashboard</h1>
         <div class="dashboard">
+          <img
+            src="images/solardashboard.png"
+            alt="Solar Panel"
+            class="solar-panel"
+          />
+        </div>
+      </div>
+
+
+      <div id="monitoring-div" class="monitoring-div">
+        <h1>Solar Monitoring</h1>
+        <div class="dashboard">
           <iframe
-            class="dashboard-iframe"
-            title="Solar Panel Dashboard"
+            class="charts-iframe"
+            title="Solar Monitoring"
             width="1140"
             height="541.25"
-            src="https://app.powerbi.com/reportEmbed?reportId=e88ab56d-fda0-4b4a-a959-d38a32da74c4&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1"
+            src="./anomaly_detection.html"
+            frameborder="0"
+            allowfullscreen="true"
+          ></iframe>  
+        </div>
+
+        <h1>Energy Forecast</h1>
+        <div class="dashboard">
+          <iframe
+            class="charts-iframe"
+            title="Energy Forecast"
+            width="1140"
+            height="541.25"
+            src="./predicted_value.html"
             frameborder="0"
             allowfullscreen="true"
           ></iframe>
         </div>
       </div>
+      
+      <div id="estate-dashboard-div" class="estate-dashboard-div">
+        <h1>Estate Dashboard</h1>
+        <div class="dashboard">
+          <iframe
+            class="dashboard-iframe"
+            title="Estate Dashboard"
+            width="1140"
+            height="541.25"
+            src="https://app.powerbi.com/reportEmbed?reportId=d02e766f-54c3-44ce-9e6d-36d354f9bf9d&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1"
+            frameborder="0"
+            allowfullscreen="true"
+          ></iframe>
+        </div>
+      </div>  
+
+
+      <div id="upload-div" class="upload-div">
+        <h1>Upload DPM and INV Files</h1>
+        <div id="upload-form-div" class="upload-form-div">
+          <form id="upload-form" method="POST" enctype="multipart/form-data" class="mt-4">
+            <div class="form-group">
+              <label for="dpm_file">DPM File:</label>
+              <input type="file" class="form-control-file" name="dpm_file" id="dpm_file" required onchange="previewFile('dpm')">
+            </div>
+            <div id="dpm_table" class="table-container"></div>
+            <div class="form-group">
+              <label for="inv_file">INV File:</label>
+              <input type="file" class="form-control-file" name="inv_file" id="inv_file" required onchange="previewFile('inv')">
+            </div>
+            <div id="inv_table" class="table-container"></div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </form>
+        </div>
+      </div>
+
     </section>
 
     <div class="container">
@@ -471,9 +474,125 @@
         </div>
       </div>
     </div>
+    <script>
+      document.getElementById('npkForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const nitrogen = document.querySelector('#nitrogen-form').value;
+        const phosphorus = document.querySelector('#phosphorus-form').value;
+        const potassium = document.querySelector('#potassium-form').value;
+        const user_ratio = `${nitrogen}:${phosphorus}:${potassium}`;
+        console.log('Nitrogen (N):', nitrogen);
+        console.log('Phosphorus (P):', phosphorus);
+        console.log('Potassium (K):', potassium);
+        console.log('User ratio:', user_ratio);
+        $.ajax({
+          url: 'http://127.0.0.1:5000/retrain',
+          method: 'POST',
+          contentType: 'application/json',
+          dataType: 'json',
+          data: JSON.stringify({
+           user_ratio: user_ratio
+          }),
+          success: function(data) {
+            if (data.status === 'success') {
+               $('#dataframe-container').html(data.table);
+             } else {
+                  $('#dataframe-container').html('<p>' + data.message + '</p>');
+              }
+                  },
+                  error: function(error) {
+                      console.log('Error:', error);
+                      $('#dataframe-container').html('<p>Error fetching data</p>');
+                  }
+              });
+      
+      });
 
+
+    </script>
+
+    <script>
+      $(document).ready(function() {
+          $('#forecast').click(function() {
+              event.preventDefault();
+              
+              
+              $.ajax({
+                  url: 'http://127.0.0.1:5000/start',
+                  method: 'POST',
+                  
+                  success: function(data) {
+                      if (data.status === 'success') {
+                          $('#dataframe-container').html(data.table);
+                      } else {
+                          $('#dataframe-container').html('<p>' + data.message + '</p>');
+                      }
+                  },
+                  error: function(error) {
+                      console.log('Error:', error);
+                      $('#dataframe-container').html('<p>Error fetching data</p>');
+                  }
+              });
+          });
+      });
+    </script>
+    <script>
+      function previewFile(type) {
+        const file = document.getElementById(type + '_file').files[0];
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const data = new Uint8Array(event.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+          const firstSheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[firstSheetName];
+          const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+          displayTable(json, type);
+        };
+        reader.readAsArrayBuffer(file);
+      }
+
+      function displayTable(data, type) {
+        let tableHtml = '<table><thead><tr>';
+        data[0].forEach(header => {
+          tableHtml += '<th>' + header + '</th>';
+        });
+        tableHtml += '</tr></thead><tbody>';
+        for (let i = 1; i < data.length; i++) {
+          tableHtml += '<tr>';
+          data[i].forEach(cell => {
+            tableHtml += '<td>' + (cell || '') + '</td>';
+          });
+          tableHtml += '</tr>';
+        }
+        tableHtml += '</tbody></table>';
+        document.getElementById(type + '_table').innerHTML = tableHtml;
+      }
+
+      $(document).ready(function() {
+        $('#upload-form').submit(function(event) {
+          event.preventDefault();
+          console.log("Form submission prevented.");
+          const formData = new FormData(this);
+          console.log("FormData prepared.");
+          $.ajax({
+            url: 'http://127.0.0.1:5001/process',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+              console.log(response.data);
+              alert('Files processed successfully!');
+            },
+            error: function(response) {
+              alert('Failed to process files');
+            }
+          });
+        });
+      });
+    </script>
     <script type="text/javascript" src="chatbot.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
     <script src="analytics.js" defer></script>
   </body>
 </html>

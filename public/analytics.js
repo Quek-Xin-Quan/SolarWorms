@@ -10,9 +10,13 @@ const light = document.getElementById('light');
 const nitrogen = document.getElementById('nitrogen');
 const phosphorus = document.getElementById('phosphorus');
 const potassium = document.getElementById('potassium');
-const prediction = document.getElementById('prediction');
+const prediction1 = document.getElementById('prediction1');
+const prediction2 = document.getElementById('prediction2');
 const sensor = document.getElementById('sensor');
 const forecast = document.getElementById('forecast');
+const upload = document.getElementById('upload');
+const monitor = document.getElementById('monitoring');
+const solar_estate = document.getElementById('solar-estate-dashboard');
 
 
 
@@ -28,9 +32,82 @@ const light_outlier = document.getElementById('light-outlier');
 const nitrogen_outlier = document.getElementById('nitrogen-outlier');
 const phosphorus_outlier = document.getElementById('phosphorus-outlier');
 const potassium_outlier = document.getElementById('potassium-outlier');
-const energy_prediction = document.getElementById('energy-prediction');
+const energy_prediction1 = document.getElementById('energy-prediction1');
+const energy_prediction2 = document.getElementById('energy-prediction2');
 const sensor_div = document.getElementById('sensor-overview-div');
 const npk_forecast = document.getElementById('npk-forecast');
+const upload_div = document.getElementById('upload-div');
+const monitoring_div = document.getElementById('monitoring-div');
+const estate_div = document.getElementById('estate-dashboard-div');
+
+
+
+
+
+solar_estate.addEventListener('click', () => {
+    heat_outlier.style.display = "none";
+    humidity_outlier.style.display = "none";
+    temperature_outlier.style.display = "none";
+    light_outlier.style.display = "none";
+    nitrogen_outlier.style.display = "none";
+    phosphorus_outlier.style.display = "none";
+    potassium_outlier.style.display = "none";
+    compost_dashboard_div.style.display = "none";
+    solar_dashboard_div.style.display = "none";
+    power_anomaly_detection_01.style.display = "none";
+    power_anomaly_detection_02.style.display = "none";
+    energy_prediction1.style.display = "none";
+    sensor_div.style.display = "none";
+    npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "block";
+});
+
+
+monitor.addEventListener('click', () => {
+    heat_outlier.style.display = "none";
+    humidity_outlier.style.display = "none";
+    temperature_outlier.style.display = "none";
+    light_outlier.style.display = "none";
+    nitrogen_outlier.style.display = "none";
+    phosphorus_outlier.style.display = "none";
+    potassium_outlier.style.display = "none";
+    compost_dashboard_div.style.display = "none";
+    solar_dashboard_div.style.display = "none";
+    power_anomaly_detection_01.style.display = "none";
+    power_anomaly_detection_02.style.display = "none";
+    energy_prediction1.style.display = "none";
+    sensor_div.style.display = "none";
+    npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "block";
+    estate_div.style.display = "none";
+});
+
+upload.addEventListener('click', () => {
+    heat_outlier.style.display = "none";
+    humidity_outlier.style.display = "none";
+    temperature_outlier.style.display = "none";
+    light_outlier.style.display = "none";
+    nitrogen_outlier.style.display = "none";
+    phosphorus_outlier.style.display = "none";
+    potassium_outlier.style.display = "none";
+    compost_dashboard_div.style.display = "none";
+    solar_dashboard_div.style.display = "none";
+    power_anomaly_detection_01.style.display = "none";
+    power_anomaly_detection_02.style.display = "none";
+    energy_prediction1.style.display = "none";
+    sensor_div.style.display = "none";
+    npk_forecast.style.display = "none";
+    upload_div.style.display = "block";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
+});
+
 
 
 forecast.addEventListener('click', () => {
@@ -45,10 +122,13 @@ forecast.addEventListener('click', () => {
     solar_dashboard_div.style.display = "none";
     power_anomaly_detection_01.style.display = "none";
     power_anomaly_detection_02.style.display = "none";
-    energy_prediction.style.display = "none";
+    energy_prediction1.style.display = "none";
     sensor_div.style.display = "none";
     npk_forecast.style.display = "block";
-
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
 
 });
 
@@ -65,13 +145,17 @@ sensor.addEventListener('click', () => {
     solar_dashboard_div.style.display = "none";
     power_anomaly_detection_01.style.display = "none";
     power_anomaly_detection_02.style.display = "none";
-    energy_prediction.style.display = "none";
+    energy_prediction1.style.display = "none";
+    energy_prediction2.style.display = "none";
     sensor_div.style.display = "block";
     npk_forecast.style.display = "none";
-
+    upload_div.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
+    
 });
 
-prediction.addEventListener('click', () => {
+prediction1.addEventListener('click', () => {
     heat_outlier.style.display = "none";
     humidity_outlier.style.display = "none";
     temperature_outlier.style.display = "none";
@@ -83,13 +167,38 @@ prediction.addEventListener('click', () => {
     solar_dashboard_div.style.display = "none";
     power_anomaly_detection_01.style.display = "none";
     power_anomaly_detection_02.style.display = "none";
-    energy_prediction.style.display = "block";
+    energy_prediction1.style.display = "block";
     sensor_div.style.display = "none";
     npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
 
 
 });
+prediction2.addEventListener('click', () => {
+    heat_outlier.style.display = "none";
+    humidity_outlier.style.display = "none";
+    temperature_outlier.style.display = "none";
+    light_outlier.style.display = "none";
+    nitrogen_outlier.style.display = "none";
+    phosphorus_outlier.style.display = "none";
+    potassium_outlier.style.display = "none";
+    compost_dashboard_div.style.display = "none";
+    solar_dashboard_div.style.display = "none";
+    power_anomaly_detection_01.style.display = "none";
+    power_anomaly_detection_02.style.display = "none";
+    energy_prediction1.style.display = "none";
+    sensor_div.style.display = "none";
+    npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "block";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
 
+
+});
 
 
 heat.addEventListener('click', () => {
@@ -104,9 +213,13 @@ heat.addEventListener('click', () => {
     solar_dashboard_div.style.display = "none";
     power_anomaly_detection_01.style.display = "none";
     power_anomaly_detection_02.style.display = "none";
-    energy_prediction.style.display = "none";
+    energy_prediction1.style.display = "none";
     sensor_div.style.display = "none";
     npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
 
 
 });
@@ -122,9 +235,13 @@ humidity.addEventListener('click', () => {
     solar_dashboard_div.style.display = "none";
     power_anomaly_detection_01.style.display = "none";
     power_anomaly_detection_02.style.display = "none";
-    energy_prediction.style.display = "none";
+    energy_prediction1.style.display = "none";
     sensor_div.style.display = "none";
     npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
 
 
 });
@@ -140,9 +257,13 @@ temperature.addEventListener('click', () => {
     solar_dashboard_div.style.display = "none";
     power_anomaly_detection_01.style.display = "none";
     power_anomaly_detection_02.style.display = "none";
-    energy_prediction.style.display = "none";
+    energy_prediction1.style.display = "none";
     sensor_div.style.display = "none";
     npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
 
 
 });
@@ -158,9 +279,13 @@ light.addEventListener('click', () => {
     solar_dashboard_div.style.display = "none";
     power_anomaly_detection_01.style.display = "none";
     power_anomaly_detection_02.style.display = "none";
-    energy_prediction.style.display = "none";
+    energy_prediction1.style.display = "none";
     sensor_div.style.display = "none";
     npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
 
 
 });
@@ -176,9 +301,13 @@ nitrogen.addEventListener('click', () => {
     solar_dashboard_div.style.display = "none";
     power_anomaly_detection_01.style.display = "none";
     power_anomaly_detection_02.style.display = "none";
-    energy_prediction.style.display = "none";
+    energy_prediction1.style.display = "none";
     sensor_div.style.display = "none";
     npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
 
 
 });
@@ -194,9 +323,13 @@ phosphorus.addEventListener('click', () => {
     solar_dashboard_div.style.display = "none";
     power_anomaly_detection_01.style.display = "none";
     power_anomaly_detection_02.style.display = "none";
-    energy_prediction.style.display = "none";
+    energy_prediction1.style.display = "none";
     sensor_div.style.display = "none";
     npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
 
 
 });
@@ -212,9 +345,13 @@ potassium.addEventListener('click', () => {
     solar_dashboard_div.style.display = "none";
     power_anomaly_detection_01.style.display = "none";
     power_anomaly_detection_02.style.display = "none";
-    energy_prediction.style.display = "none";
+    energy_prediction1.style.display = "none";
     sensor_div.style.display = "none";
     npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
 
 });
 
@@ -234,9 +371,13 @@ compost_dashboard.addEventListener('click', () => {
     solar_dashboard_div.style.display = "none";
     power_anomaly_detection_01.style.display = "none";
     power_anomaly_detection_02.style.display = "none";
-    energy_prediction.style.display = "none";
+    energy_prediction1.style.display = "none";
     sensor_div.style.display = "none";
     npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
 
     
 });
@@ -253,9 +394,13 @@ solar_dashboard.addEventListener('click', () => {
     solar_dashboard_div.style.display = "block";
     power_anomaly_detection_01.style.display = "none";
     power_anomaly_detection_02.style.display = "none";
-    energy_prediction.style.display = "none";
+    energy_prediction1.style.display = "none";
     sensor_div.style.display = "none";
     npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
 
 });
 
@@ -271,9 +416,13 @@ anomaly_detection1.addEventListener('click', () => {
     solar_dashboard_div.style.display = "none";
     power_anomaly_detection_01.style.display = "block";
     power_anomaly_detection_02.style.display = "none";
-    energy_prediction.style.display = "none";
+    energy_prediction1.style.display = "none";
     sensor_div.style.display = "none";
     npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
 
     
 });
@@ -290,9 +439,13 @@ anomaly_detection2.addEventListener('click', () => {
     solar_dashboard_div.style.display = "none";
     power_anomaly_detection_01.style.display = "none";
     power_anomaly_detection_02.style.display = "block";
-    energy_prediction.style.display = "none";
+    energy_prediction1.style.display = "none";
     sensor_div.style.display = "none";
     npk_forecast.style.display = "none";
+    upload_div.style.display = "none";
+    energy_prediction2.style.display = "none";
+    monitoring_div.style.display = "none";
+    estate_div.style.display = "none";
 
 });
 
