@@ -1,224 +1,147 @@
-from flask import Flask, render_template, request, jsonify
-from flask_cors import CORS
-import pandas as pd
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler
-from darts import TimeSeries
-from darts.models import KalmanForecaster
-from statsmodels.tsa.stattools import grangercausalitytests
-import math
-from sklearn.metrics import mean_squared_error
+import pandas as pd
+from sklearn.metrics.pairwise import cosine_similarity
+from flask import Flask, request, render_template, jsonify
+import gensim.downloader as api
+import regex as re
 import os
+from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+# Load the Word2Vec model
+model = api.load("word2vec-google-news-300")
 
-# Loading and preparing data
-def load_data(file_path):
-    return pd.read_csv(file_path)
+# Function to get data from Excel file
+def get_data():
+    xls = pd.ExcelFile('MacPherson Feeding Logs.xlsx')
+    carbon_index = pd.read_excel(xls, 'Emission Carbon Index')
+    df2 = pd.read_excel(xls, 'Sep to Dec 2023')
+    df3 = pd.read_excel(xls, 'Jan to Jun 2024')
 
-def converting_format(data):
-    data['dbtimestamp'] = pd.to_datetime(data['dbtimestamp'])
-    data['dbtimestamp'] = data['dbtimestamp'].dt.round('5s')
-    pivoted_data = data.pivot_table(index='dbtimestamp', columns='sensor', values='value', aggfunc='mean')
-    pivoted_data_filled = pivoted_data.ffill().bfill()
-    pivoted_data_filled.index = pivoted_data_filled.index + pd.Timedelta(hours=8)
-    pivoted_data_filled = pivoted_data_filled.reset_index()
-    pivoted_data_filled.rename(columns={
-        'dbtimestamp': 'TimeFrame',
-        '7 in 1 Soil Sensor Potassium': 'Potassium',
-        '7 in 1 Soil Sensor Phosphorus': 'Phosphorus',
-        '7 in 1 Soil Sensor Nitrogen': 'Nitrogen',
-        '7 in 1 Soil Sensor PH': 'PH',
-        '7 in 1 Soil Sensor EC': 'EC',
-        '7 in 1 Soil Sensor Temperature': 'temperature',
-        '7 in 1 Soil Sensor Moisture': 'moisture',
-        'SCD41 Humidity': 'humidity',
-        'SCD41 Temperature': 'SCD41 Temperature',
-        'SCD41 CO2': 'CO2'
-    }, inplace=True)
-    pivoted_data_5min = pivoted_data_filled.set_index('TimeFrame').resample('5T').mean().reset_index()
-    return pivoted_data_5min
+    # Set the new header for carbon_index
+    new_header = carbon_index.iloc[0]  # This is the first row for the header
+    carbon_index = carbon_index[1:]  # Take the data less the header row
+    carbon_index.columns = new_header  # Set the header row as the dataframe header
 
-def detect_outliers(series, threshold=2):
-    mean = series.mean()
-    std = series.std()
-    z_scores = (series - mean) / std
-    return z_scores.abs() > threshold
+    # Drop the 'S/N' column
+    carbon_index.drop('S/N', axis=1, inplace=True)
 
-def extract_p_values(test_results, max_lag):
-    p_values = {}
-    for lag in range(1, max_lag + 1):
-        p_values[lag] = test_results[lag][0]['ssr_ftest'][1]
-    return p_values
+    tank1 = df2['Tank 1']
+    return carbon_index, df2, df3, tank1
 
-def data_preprocessing(data, file_path=None):
-    if file_path:
-        new_data = load_data(file_path)
+# Function to remove 'distilled water' segment
+def remove_distilled_water(text):
+    return re.sub(r'\d+g of distilled water,?\s*', '', text)
+
+# Function to create a quantity dictionary
+def quantity_dictionary(row):
+    if pd.notna(row):
+        numerical_values = re.findall(r'\d+', row)
+        return numerical_values
+    return []
+
+# Function to split text and filter unwanted words
+def split_text(row):
+    unwanted_words = {'of', 'dry', 'dried', 'wet', 'crushed', 'tops', 'tops,', 'skins', 'skins,', 'coffee'}
+    if pd.notna(row):
+        if isinstance(row, list):
+            row = ' '.join(row)
+        words = row.split(" ")
+        filtered_words = [word for word in words if not any(char.isdigit() for char in word) and word.lower() not in unwanted_words]
+        cleaned_list = [item.strip(',') for item in filtered_words if item.strip(',')]
+        return cleaned_list
+    return []
+
+# Function to process the data
+def data_processing(tank1):
+    carbon_index, df2, df3, tank1 = get_data()
+    food_dict = carbon_index['Food Name'].to_dict()
+    food_info = carbon_index.set_index('Food Name').T.to_dict('list')
+
+    tank1 = tank1.str.replace('1 spoon', '15g')
+    tank1 = pd.DataFrame(tank1)
+    tank1['Tank 1'] = tank1['Tank 1'].str.replace('\n', ', ').str.replace('(', ' ').str.replace(')', ' ')
+    tank1['Tank 1'] = tank1['Tank 1'].astype(str)
+    tank1['Tank 1'] = tank1['Tank 1'].apply(remove_distilled_water)
+
+    quantity_dict = tank1['Tank 1'].apply(quantity_dictionary)
+    df_split = tank1['Tank 1'].apply(split_text)
+
+    for i in range(len(df_split)):
+        for j in range(len(df_split[i])):
+            if df_split[i][j] == "grinds":
+                df_split[i][j] = "Coffee Grounds"
+            if df_split[i][j] == "grounds":
+                df_split[i][j] = "Grounded Coffee"
+
+    processed_sentences = df_split.copy()
+    return food_dict, food_info, tank1, quantity_dict, processed_sentences
+
+# Function to get vector for a phrase
+def get_phrase_vector(phrase, model):
+    words = phrase.lower().split()
+    vectors = [model[word] for word in words if word in model]
+    if vectors:
+        return np.mean(vectors, axis=0)
     else:
-        new_data = data
-    new_data = converting_format(new_data)
-    new_data = new_data[-432:]
-    time_series_col = new_data.columns.to_list()
+        return np.zeros(model.vector_size)
 
-    for i in time_series_col:
-        new_data[i] = new_data[i].replace(0, np.nan)
-        new_data[i] = new_data[i].bfill()
+# Function to train the model
+def model_training(model, food_dict):
+    word_list_vectors = {phrase: get_phrase_vector(phrase, model) for phrase in food_dict.values()}
+    return word_list_vectors
 
-    for column in new_data[time_series_col].columns:
-        outliers = detect_outliers(new_data[column])
-        new_data.loc[outliers, column] = np.nan
-        new_data[column].fillna(new_data[column].mean(), inplace=True)
+# Function to process the list
+def process_list(word_list, model, word_list_vectors):
+    return [find_most_similar_phrase(word, model, word_list_vectors) for word in word_list]
 
-    for column in new_data.columns:
-        if new_data[column].nunique() == 1:
-            new_data.drop(column, axis=1, inplace=True)
+# Function to find the most similar phrase
+def find_most_similar_phrase(phrase, model, word_list_vectors):
+    phrase_vector = get_phrase_vector(phrase, model)
+    similarities = {key: cosine_similarity([phrase_vector], [vector])[0][0] for key, vector in word_list_vectors.items()}
+    sorted_similarities = sorted(similarities.items(), key=lambda item: item[1], reverse=True)
+    most_similar_phrase = sorted_similarities[0][0] if sorted_similarities and sorted_similarities[0][1] > 0.5 else None
+    return most_similar_phrase
 
-    for feature in new_data.columns:
-        if new_data[feature].isnull().sum() > 0:
-            new_data.drop(feature, axis=1, inplace=True)
+# Function to calculate word similarity and carbon values
+def word_similarity(processed_sentences, food_info, quantity_dict, model, word_list_vectors):
+    data = {'Tank 1': processed_sentences}
+    df = pd.DataFrame(data)
+    df['Replaced Phrases'] = df['Tank 1'].apply(lambda x: process_list(x, model, word_list_vectors))
 
-    Time_Col = new_data['TimeFrame']
-    new_data.drop(['TimeFrame'], axis=1, inplace=True)
+    for row in df['Replaced Phrases']:
+        for item in row:
+            if item is None:
+                row.remove(item)
 
-    phos_significant_features = []
-    nitro_significant_features = []
-    pot_significant_features = []
-    max_lag = 5
+    row_list = []
+    for index_number, row in enumerate(df['Replaced Phrases']):
+        row_values = 0
+        if row is not None:
+            for dict_number, item in enumerate(row):
+                carbon_value = food_info[item][0]
+                quantity = float(quantity_dict[index_number][dict_number])
+                row_values += carbon_value * quantity
+        row_list.append(row_values)
 
-    for feature in new_data.columns:
-        test_result = grangercausalitytests(new_data[['Phosphorus', feature]], max_lag)
-        p_values = extract_p_values(test_result, max_lag)
-        if any(p_value < 0.05 for p_value in p_values.values()):
-            phos_significant_features.append(feature)
-
-    for feature in new_data.columns:
-        test_result = grangercausalitytests(new_data[['Nitrogen', feature]], max_lag)
-        p_values = extract_p_values(test_result, max_lag)
-        if any(p_value < 0.05 for p_value in p_values.values()):
-            nitro_significant_features.append(feature)
-
-    for feature in new_data.columns:
-        test_result = grangercausalitytests(new_data[['Potassium', feature]], max_lag)
-        p_values = extract_p_values(test_result, max_lag)
-        if any(p_value < 0.05 for p_value in p_values.values()):
-            pot_significant_features.append(feature)
-
-    final_significant_features = list(set(phos_significant_features + nitro_significant_features + pot_significant_features + ['Phosphorus', 'Nitrogen', 'Potassium']))
-    new_data = new_data[final_significant_features]
-
-    new_data['TimeFrame'] = Time_Col
-    train = new_data[:int(0.8 * (len(new_data)))]
-    test = new_data[int(0.8 * (len(new_data))):]
-
-    train_timeframe = train['TimeFrame']
-    test_timeframe = test['TimeFrame']
-    train.drop('TimeFrame', axis=1, inplace=True)
-
-    scaler = MinMaxScaler(feature_range=(0, 1))
-    scaled_train = scaler.fit_transform(train)
-
-    col_list = train.columns.to_list()
-    scaled_train = pd.DataFrame(scaled_train, columns=col_list)
-    scaled_train.index = train_timeframe
-    scaled_train.index = scaled_train.index.to_period('10T')
-
-    test.index = test['TimeFrame']
-    test.drop('TimeFrame', axis=1, inplace=True)
-
-    return scaled_train, test, train_timeframe, test_timeframe, scaler
-
-def model_retraining(scaled_train, test):
-    kalman_df = scaled_train.reset_index()
-    kalman_df.rename(columns={'index': 'date'}, inplace=True)
-    col_list = scaled_train.columns.tolist()
-    series = TimeSeries.from_dataframe(kalman_df, 'TimeFrame', col_list)
-    model = KalmanForecaster(dim_x=series.width)
-    model.fit(series)
-    return model
-
-def model_validation(model, test, scaler):
-    n_forecast = len(test)
-    predict = model.predict(n_forecast)
-    predictions = predict.pd_dataframe()
-    predictionsdf = pd.DataFrame(scaler.inverse_transform(predictions), columns=predictions.columns)
-    forecast_validation = pd.DataFrame(predictionsdf.values, index=test.index, columns=predictions.columns)
-    return forecast_validation
-
-def minimum_score(forecast_val, test):
-    rmse_phos = math.sqrt(mean_squared_error(forecast_val['Phosphorus'], test['Phosphorus']))
-    rmse_nitro = math.sqrt(mean_squared_error(forecast_val['Nitrogen'], test['Nitrogen']))
-    rmse_potas = math.sqrt(mean_squared_error(forecast_val['Potassium'], test['Potassium']))
-
-    min_score_dict = {'Phos_Score': 100, 'Nitro_score': 70, 'Potas_score': 200}
-
-    phos_valid = rmse_phos < min_score_dict['Phos_Score']
-    nitro_valid = rmse_nitro < min_score_dict['Nitro_score']
-    potas_valid = rmse_potas < min_score_dict['Potas_score']
-
-    return phos_valid and nitro_valid and potas_valid
-
-def final_prediction(model, test, scaler, n_forecast=12):
-    predict = model.predict(n_forecast)
-    predictions = predict.pd_dataframe()
-    predictionsdf = pd.DataFrame(scaler.inverse_transform(predictions), columns=predictions.columns)
-    start_timestamp = test.index.max() + pd.Timedelta(minutes=10)
-    new_index = pd.date_range(start=start_timestamp, periods=n_forecast + 1, freq='10T')[1:]
-    forecastdf = pd.DataFrame(predictionsdf.values, index=new_index, columns=predictions.columns)
-    return forecastdf
-
-def parse_ratio(ratio_str):
-    return list(map(float, ratio_str.split(':')))
-
-def check_ratio(row, ratio, tolerance=0.45):
-    row = row / row.sum()
-    ratio = np.array(ratio) / np.sum(ratio)
-    return np.all(np.abs(row - ratio) <= tolerance)
-
-def apply_ratio_check(df, ratio_str, tolerance=0.45):
-    ratio = parse_ratio(ratio_str)
-    return df.apply(check_ratio, axis=1, ratio=ratio, tolerance=tolerance)
+    df['Carbon Value (g)'] = row_list
+    return df
 
 @app.route('/')
-def loadpage():
-    return render_template('home.html', query='')
+def index():
+    return render_template('carbon.html')
 
-@app.route('/retrain', methods=['POST'])
-def retrain():
-    data_file = request.files.get('data_file')
-    data_path = os.path.join('/tmp', data_file.filename)
-    data_file.save(data_path)
-    scaled_train, test, train_timeframe, test_timeframe, scaler = data_preprocessing(data=None, file_path=data_path)
-    scaled_train.index = train_timeframe
-
-    model = model_retraining(scaled_train, test)
-    score_df = model_validation(model, test, scaler)
-
-    if minimum_score(score_df, test):
-        user_ratio = '1:4:2'
-        final_forecast_df = final_prediction(model, test, scaler, n_forecast=12)
-        final_forecast_df = final_forecast_df[["Nitrogen", "Phosphorus", "Potassium"]]
-        final_forecast_df['RatioCheck'] = apply_ratio_check(final_forecast_df, user_ratio)
-        forecast_html = final_forecast_df.to_html(classes='table table-striped', table_id='forecast_table', justify='center')
-        return forecast_html
-    else:
-        return 'Model retrained successfully but failed the minimum score'
-
-@app.route('/start', methods=['POST'])
-def start():
-    data_file = request.files.get('data_file')
-    data_path = os.path.join('/tmp', data_file.filename)
-    data_file.save(data_path)
-    scaled_train, test, train_timeframe, test_timeframe, scaler = data_preprocessing(data=None, file_path=data_path)
-    scaled_train.index = train_timeframe
-
-    model = model_retraining(scaled_train, test)
-    forecast_df = model_validation(model, test, scaler)
-    if minimum_score(forecast_df, test):
-        forecast_html = forecast_df.to_html(classes='table table-striped')
-        return jsonify({'status': 'success', 'table': forecast_html})
-    else:
-        return jsonify({'status': 'failure', 'message': 'Model retrained but failed the minimum score'})
+@app.route('/submit', methods=['POST'])
+def submit():
+    input_data = request.form['compostInput']
+    # Here you would process the input_data as required
+    carbon_index, df2, df3, tank1 = get_data()
+    food_dict, food_info, tank1, quantity_dict, processed_sentences = data_processing(tank1)
+    word_list_vectors = model_training(model, food_dict)
+    df = word_similarity(processed_sentences, food_info, quantity_dict, model, word_list_vectors)
+    carbon_value = df['Carbon Value (g)'].sum()
+    return jsonify({'Total Carbon Value (g)': carbon_value})
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5002, debug=True)
